@@ -1,20 +1,27 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import BotArmy from './BotArmy';
+import Delete from './Delete';
+
 function Bot({ bots }) {
- 
+  const [arr, setArr] = useState([]);
+  const [category, setCategory]=useState([])
+  function handleClick(element) {
+    if(!category.includes(element.bot_class)){ // if bot class does not exist in the array then set the array with the new object
+      setCategory([...category, element.bot_class])
+      setArr([...arr,element])//the array is populated with data now
+    }
+  }
 
   return (
-    <div >
-        <BotArmy/>
-        <div className='box-container'>
-      {bots.map((element) => (
-        <Link to={`/details/${element.id}`}>
-        <div key={element.id} className='box'>
-          <img src={element.avatar_url}/>
-          <h3>{element.name}</h3>
-          <h4>{element.bot_class}</h4>
-          
+    <div>
+      <BotArmy arr={arr} />
+      <div className='box-container'>
+        {bots.map((element) => (
+          <div key={element.id} className='box' onClick={() => handleClick(element)}>
+            <img src={element.avatar_url} alt={element.name} />
+            <h3>{element.name}</h3>
+            <h4>{element.bot_class}</h4>
+
             <div>
               <div className="details">
                 <p>Health {element.health}</p>
@@ -24,9 +31,10 @@ function Bot({ bots }) {
               <br />
               <p>catchphrase <br /> {element.catchphrase}</p>
             </div>
-        </div>
-        </Link>
-      ))}
+
+            <Delete element={element} />
+          </div>
+        ))}
       </div>
     </div>
   );

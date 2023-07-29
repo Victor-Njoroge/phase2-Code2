@@ -1,18 +1,36 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 
-function BotArmy({army}) {
-    console.log(army)
+function BotArmy({ arr }) {
+ 
+  const [botArmy, setBotArmy] = useState([]);
+
+ 
+  useEffect(() => { 
+    setBotArmy(arr); 
+  }, [arr]);
+
+  
+  function handleClick(bot) {
+   
+    const updatedBotArmy = botArmy.filter((army) => army.id !== bot.id); //if the id of the button in the card cliked is not equal to the id in the bot army then it should let it remain there otherwise the if the id is found to be equal then the object should be removed
+    setBotArmy(updatedBotArmy);
+  }
+
   return (
     <div className='container'>
-        <div className='box'>
-        <img src={army.avatar_url} alt={army.name}/>
-            <br />
-            <h3>{army.name}</h3>
-            <br />
-            <h4>{army.bot_class}</h4>
+      {botArmy.map((bot) => (  
+        <div className="box" key={bot.id}>
+          <img src={bot.avatar_url} alt={bot.name} />
+          <br />
+          <h3>{bot.name}</h3>
+          <h4>{bot.bot_class}</h4>
+          <button type="button" onClick={() => handleClick(bot)}>
+            Release
+          </button>
         </div>
+      ))}
     </div>
-  )
+  );
 }
 
-export default BotArmy
+export default BotArmy;

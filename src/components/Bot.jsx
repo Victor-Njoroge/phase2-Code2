@@ -12,9 +12,13 @@ function Bot({ bots }) {
     }
   }
 
+  function Update(updatedBotArmy){
+    setArr(updatedBotArmy)
+  }
+
   return (
     <div>
-      <BotArmy arr={arr} />
+      <BotArmy arr={arr} Update={Update}/>
       <div className='box-container'>
         {bots.map((element) => (
           <div key={element.id} className='box' onClick={() => handleClick(element)}>

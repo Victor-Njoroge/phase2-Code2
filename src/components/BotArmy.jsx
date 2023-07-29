@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function BotArmy({ arr }) {
+function BotArmy({ arr, Update }) {
  
   const [botArmy, setBotArmy] = useState([]);
 
@@ -13,7 +13,8 @@ function BotArmy({ arr }) {
   function handleClick(bot) {
    
     const updatedBotArmy = botArmy.filter((army) => army.id !== bot.id); //if the id of the button in the card cliked is not equal to the id in the bot army then it should let it remain there otherwise the if the id is found to be equal then the object should be removed
-    setBotArmy(updatedBotArmy);
+    //setBotArmy(updatedBotArmy);
+    Update(updatedBotArmy)
   }
 
   return (
